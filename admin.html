@@ -3,868 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToolsHub Admin — Dashboard</title>
+  <title>ToolsHub Admin</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #0f0f0f;
-      --surface: #1a1a2e;
-      --surface-hover: #16213e;
-      --accent: #e94560;
-      --accent-hover: #c73e54;
-      --green: #2ecc71;
-      --yellow: #f39c12;
-      --text: #eee;
-      --text-muted: #888;
-      --border: #2a2a3e;
-      --radius: 12px;
-    }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 30px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topbar h1 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .topbar a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .topbar a:hover { text-decoration: underline; }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      min-height: calc(100vh - 58px);
-    }
-
-    .sidebar {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 24px;
-      overflow-y: auto;
-    }
-
-    .sidebar h2 {
-      font-size: 1rem;
-      margin-bottom: 16px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .main {
-      padding: 30px 40px;
-      overflow-y: auto;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      margin-top: 14px;
-      font-weight: 600;
-    }
-
+    :root { --bg: #0f0f0f; --surface: #1a1a2e; --surface-hover: #16213e; --accent: #e94560; --accent-hover: #c73e54; --green: #2ecc71; --yellow: #f39c12; --text: #eee; --text-muted: #888; --border: #2a2a3e; --radius: 12px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 16px 30px; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .topbar h1 { font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .topbar a { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .layout { display: grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 58px); }
+    .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px; overflow-y: auto; }
+    .sidebar h2 { font-size: 1rem; margin-bottom: 16px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .main { padding: 30px 40px; overflow-y: auto; }
+    label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; margin-top: 14px; font-weight: 600; }
     label:first-of-type { margin-top: 0; }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.95rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
+    input, select, textarea { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.3s; }
     input:focus, select:focus, textarea:focus { border-color: var(--accent); }
     textarea { resize: vertical; min-height: 80px; }
-
-    .file-upload-zone {
-      border: 2px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 14px;
-      position: relative;
-    }
-
-    .file-upload-zone:hover { border-color: var(--accent); background: rgba(233,69,96,0.05); }
-    .file-upload-zone.dragover { border-color: var(--accent); background: rgba(233,69,96,0.1); }
-
-    .file-upload-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .file-upload-zone .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .file-upload-zone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 24px; text-align: center; cursor: pointer; transition: all 0.3s; margin-top: 10px; position: relative; }
+    .file-upload-zone:hover { border-color: var(--accent); }
+    .file-upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
     .file-upload-zone .upload-text { color: var(--text-muted); font-size: 0.9rem; }
-    .file-upload-zone .upload-hint { color: var(--text-muted); font-size: 0.75rem; margin-top: 4px; }
-
-    .file-selected {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--surface-hover);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-top: 10px;
-    }
-
+    .file-selected { display: flex; align-items: center; gap: 10px; background: var(--surface-hover); border: 1px solid var(--green); border-radius: 8px; padding: 10px 14px; margin-top: 10px; }
     .file-selected .file-name { flex: 1; font-size: 0.9rem; }
     .file-selected .file-size { color: var(--text-muted); font-size: 0.8rem; }
-    .file-selected .file-remove {
-      background: none;
-      border: none;
-      color: var(--accent);
-      cursor: pointer;
-      font-size: 1.2rem;
-      padding: 0 4px;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .checkbox-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent);
-    }
-
-    .checkbox-row label {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: none;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.15s;
-      margin-top: 20px;
-      font-family: inherit;
-    }
-
+    .file-selected .file-remove { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 1.2rem; }
+    .checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+    .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+    .checkbox-row label { margin: 0; font-size: 0.95rem; color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; border: none; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.3s, transform 0.15s; margin-top: 20px; font-family: inherit; }
     .btn:active { transform: scale(0.97); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      width: 100%;
-      justify-content: center;
-    }
-
+    .btn-primary { background: var(--accent); color: #fff; width: 100%; justify-content: center; }
     .btn-primary:hover { background: var(--accent-hover); }
-
-    .btn-primary:disabled {
-      background: var(--border);
-      color: var(--text-muted);
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-danger {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      margin-top: 0;
-    }
-
+    .btn-danger { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 14px; font-size: 0.8rem; margin-top: 0; }
     .btn-danger:hover { background: var(--accent); color: #fff; }
-
-    .btn-secondary {
-      background: var(--surface-hover);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      font-size: 0.9rem;
-      margin-top: 14px;
-    }
-
+    .btn-secondary { background: var(--surface-hover); color: var(--text); border: 1px solid var(--border); padding: 10px 20px; font-size: 0.9rem; margin-top: 14px; }
     .btn-secondary:hover { border-color: var(--accent); }
-
-    .status-bar {
-      margin-top: 20px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      display: none;
-    }
-
+    .status-bar { margin-top: 20px; padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; display: none; word-break: break-word; }
     .status-bar.show { display: block; }
     .status-bar.success { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
     .status-bar.error { background: rgba(233,69,96,0.15); color: var(--accent); border: 1px solid rgba(233,69,96,0.3); }
     .status-bar.info { background: rgba(52,152,219,0.15); color: #3498db; border: 1px solid rgba(52,152,219,0.3); }
-    .status-bar.warning { background: rgba(243,156,18,0.15); color: var(--yellow); border: 1px solid rgba(243,156,18,0.3); }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 24px 0;
-    }
-
-    .existing-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .existing-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: border-color 0.3s;
-    }
-
+    .existing-list { display: flex; flex-direction: column; gap: 12px; }
+    .existing-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; justify-content: space-between; align-items: center; }
     .existing-item:hover { border-color: var(--accent); }
-
-    .existing-item-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .existing-item-icon {
-      font-size: 1.5rem;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface-hover);
-      border-radius: 10px;
-    }
-
+    .existing-item-info { display: flex; align-items: center; gap: 12px; }
+    .existing-item-icon { font-size: 1.5rem; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: var(--surface-hover); border-radius: 10px; }
     .existing-item-name { font-weight: 700; font-size: 0.95rem; }
     .existing-item-cat { font-size: 0.8rem; color: var(--text-muted); }
-    .existing-item-file { font-size: 0.75rem; color: var(--green); margin-top: 2px; }
-
-    .existing-item-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .btn-edit {
-      background: transparent;
-      color: #3498db;
-      border: 1px solid #3498db;
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      font-family: inherit;
-    }
-
+    .existing-item-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-edit { background: transparent; color: #3498db; border: 1px solid #3498db; padding: 6px 14px; font-size: 0.8rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: inherit; }
     .btn-edit:hover { background: #3498db; color: #fff; }
-
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .config-section {
-      background: var(--surface-hover);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-    }
-
-    .config-section h3 {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
-    .no-tools {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-    }
-
+    .config-section { background: var(--surface-hover); border-radius: var(--radius); padding: 18px; margin-bottom: 20px; border: 1px solid var(--border); }
+    .config-section h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .no-tools { text-align: center; padding: 40px; color: var(--text-muted); }
     .no-tools span { font-size: 2rem; display: block; margin-bottom: 10px; }
-
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      flex-direction: column;
-      gap: 16px;
-    }
-
+    .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 999; flex-direction: column; gap: 16px; }
     .loading-overlay.show { display: flex; }
     .loading-overlay .spinner { width: 40px; height: 40px; border-width: 3px; }
     .loading-msg { color: var(--text-muted); font-size: 0.95rem; }
-
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
-      .main { padding: 20px; }
-    }
+    .step-log { margin-top: 12px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; }
+    .step-log .ok { color: var(--green); }
+    .step-log .fail { color: var(--accent); }
+    .step-log .warn { color: var(--yellow); }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .sidebar { border-right: none; border-bottom: 1px solid var(--border); } .main { padding: 20px; } }
   </style>
 </head>
 <body>
-
-  <div class="topbar">
-    <h1>ToolsHub Admin</h1>
-    <a href="index.html" target="_blank">View Live Site &#8599;</a>
-  </div>
-
+  <div class="topbar"><h1>ToolsHub Admin</h1><a href="index.html" target="_blank">View Live Site &#8599;</a></div>
   <div class="layout">
-
-    <!-- SIDEBAR: FORM -->
     <div class="sidebar">
       <h2 id="form-title">Add Extension</h2>
-
-      <label>Extension Name *</label>
-      <input type="text" id="name" placeholder="e.g. Dark Mode Toggle">
-
-      <label>Description *</label>
-      <textarea id="description" placeholder="What does this extension do?"></textarea>
-
-      <label>Icon (emoji)</label>
-      <input type="text" id="icon" placeholder="e.g. 🌙" maxlength="4">
-
-      <label>Version</label>
-      <input type="text" id="version" placeholder="e.g. 1.0.0" value="1.0.0">
-
-      <label>Author</label>
-      <input type="text" id="author" placeholder="e.g. Rafiq" value="Rafiq">
-
+      <label>Extension Name *</label><input type="text" id="name" placeholder="e.g. Dark Mode Toggle">
+      <label>Description *</label><textarea id="description" placeholder="What does this extension do?"></textarea>
+      <label>Icon (emoji)</label><input type="text" id="icon" placeholder="e.g. 🌙" maxlength="4">
+      <label>Version</label><input type="text" id="version" value="1.0.0">
+      <label>Author</label><input type="text" id="author" value="Rafiq">
       <label>Category</label>
-      <select id="category">
-        <option>Productivity</option>
-        <option>Developer Tools</option>
-        <option>Shopping</option>
-        <option>Social Media</option>
-        <option>Entertainment</option>
-        <option>Security</option>
-        <option>Utilities</option>
-        <option>AI &amp; Machine Learning</option>
-        <option>Other</option>
-      </select>
-
-      <label>Chrome Web Store URL (optional)</label>
-      <input type="url" id="chromeWebStoreUrl" placeholder="https://chromewebstore.google.com/detail/...">
-
-      <label>Extension File (.zip) *</label>
-      <div class="file-upload-zone" id="fileZone">
-        <input type="file" id="extensionFile" accept=".zip,.crx">
-        <div class="upload-icon">📁</div>
-        <div class="upload-text">Click or drag .zip file here</div>
-        <div class="upload-hint">Max 50MB — Your extension package</div>
-      </div>
+      <select id="category"><option>Productivity</option><option>Developer Tools</option><option>Shopping</option><option>Social Media</option><option>Entertainment</option><option>Security</option><option>Utilities</option><option>AI &amp; Machine Learning</option><option>Other</option></select>
+      <label>Chrome Web Store URL (optional)</label><input type="url" id="chromeWebStoreUrl" placeholder="https://chromewebstore.google.com/detail/...">
+      <label>Extension File (.zip)</label>
+      <div class="file-upload-zone" id="fileZone"><input type="file" id="extensionFile" accept=".zip,.crx"><div class="upload-text">📁 Click or drag .zip file here</div></div>
       <div id="fileInfo"></div>
-
-      <label>Tags (comma separated)</label>
-      <input type="text" id="tags" placeholder="e.g. dark mode, theme, eye care">
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="featured">
-        <label for="featured">Mark as Featured ⭐</label>
-      </div>
-
-      <button class="btn btn-primary" id="publishBtn" onclick="publish()">
-        Publish to GitHub
-      </button>
-
+      <label>Tags (comma separated)</label><input type="text" id="tags" placeholder="e.g. dark mode, theme">
+      <div class="checkbox-row"><input type="checkbox" id="featured"><label for="featured">Featured ⭐</label></div>
+      <button class="btn btn-primary" id="publishBtn" onclick="publish()">Publish to GitHub</button>
       <div class="status-bar" id="status"></div>
-
-      <button class="btn btn-secondary" id="resetBtn" onclick="resetForm()" style="display:none;">
-        Cancel Edit
-      </button>
+      <div class="step-log" id="stepLog"></div>
+      <button class="btn btn-secondary" id="resetBtn" onclick="resetForm()" style="display:none;">Cancel Edit</button>
     </div>
-
-    <!-- MAIN: EXISTING TOOLS -->
     <div class="main">
       <div class="config-section">
         <h3>GitHub Config</h3>
-        <label>Personal Access Token</label>
-        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
-        <label style="margin-top:10px;">Branch</label>
-        <input type="text" id="branch" value="main" style="max-width:200px;">
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">
-          Token needs <code>repo</code> scope. Stored in your browser only.
-        </p>
-        <button class="btn btn-secondary" onclick="loadFromGitHub()" id="loadBtn">Load Extensions from GitHub</button>
+        <label>Personal Access Token</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+        <label style="margin-top:10px;">Branch</label><input type="text" id="branch" value="main" style="max-width:200px;">
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">Token needs <code>repo</code> scope.</p>
+        <button class="btn btn-secondary" onclick="loadFromGitHub()">Load from GitHub</button>
       </div>
-
-      <h2 style="font-size:1rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">
-        Published Extensions
-      </h2>
-
-      <div class="existing-list" id="existingList">
-        <div class="no-tools">
-          <span>📭</span>
-          No extensions loaded. Configure GitHub and click "Load Extensions from GitHub".
-        </div>
-      </div>
+      <h2 style="font-size:1rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">Published Extensions</h2>
+      <div class="existing-list" id="existingList"><div class="no-tools"><span>📭</span>Load from GitHub to see extensions.</div></div>
     </div>
   </div>
-
-  <div class="loading-overlay" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-msg" id="loadingMsg">Working...</div>
-  </div>
-
+  <div class="loading-overlay" id="loading"><div class="spinner"></div><div class="loading-msg" id="loadingMsg">Working...</div></div>
   <script>
-    const API_BASE = "https://api.github.com";
-    const OWNER = "Rafiqjalalia";
-    const REPO = "toolshub";
-    const FILE_PATH = "tools.json";
-
-    let currentTools = [];
-    let editingId = null;
-    let currentFileSHA = null;
-    let selectedFile = null;
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const savedToken = localStorage.getItem("toolshub_gh_token");
-      const savedBranch = localStorage.getItem("toolshub_branch");
-      if (savedToken) document.getElementById("ghToken").value = savedToken;
-      if (savedBranch) document.getElementById("branch").value = savedBranch;
-
-      const fileInput = document.getElementById("extensionFile");
-      const zone = document.getElementById("fileZone");
-
-      fileInput.addEventListener("change", (e) => handleFileSelect(e.target.files[0]));
-
-      zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("dragover"); });
-      zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
-      zone.addEventListener("drop", (e) => {
-        e.preventDefault();
-        zone.classList.remove("dragover");
-        if (e.dataTransfer.files.length) handleFileSelect(e.dataTransfer.files[0]);
-      });
+    const API="https://api.github.com";const OWNER="Rafiqjalalia";const REPO="toolshub";
+    let tools=[],editId=null,fileSHA=null,selFile=null;
+    window.addEventListener("DOMContentLoaded",()=>{
+      const t=localStorage.getItem("th_token"),b=localStorage.getItem("th_branch");
+      if(t)document.getElementById("ghToken").value=t;
+      if(b)document.getElementById("branch").value=b;
+      const fi=document.getElementById("extensionFile"),zone=document.getElementById("fileZone");
+      fi.addEventListener("change",e=>pickFile(e.target.files[0]));
+      zone.addEventListener("dragover",e=>{e.preventDefault();zone.style.borderColor="var(--accent)"});
+      zone.addEventListener("dragleave",()=>{zone.style.borderColor=""});
+      zone.addEventListener("drop",e=>{e.preventDefault();zone.style.borderColor="";if(e.dataTransfer.files.length)pickFile(e.dataTransfer.files[0])});
     });
-
-    function handleFileSelect(file) {
-      if (!file) return;
-      if (!file.name.endsWith(".zip") && !file.name.endsWith(".crx")) {
-        showStatus("Only .zip or .crx files are allowed.", "error");
-        return;
-      }
-      if (file.size > 50 * 1024 * 1024) {
-        showStatus("File too large. Max 50MB allowed.", "error");
-        return;
-      }
-      selectedFile = file;
-      document.getElementById("fileInfo").innerHTML = `
-        <div class="file-selected">
-          <span>📦</span>
-          <span class="file-name">${file.name}</span>
-          <span class="file-size">${formatSize(file.size)}</span>
-          <button class="file-remove" onclick="removeFile()">&times;</button>
-        </div>`;
-    }
-
-    function removeFile() {
-      selectedFile = null;
-      document.getElementById("extensionFile").value = "";
-      document.getElementById("fileInfo").innerHTML = "";
-    }
-
-    function formatSize(bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
-      return (bytes / 1048576).toFixed(1) + " MB";
-    }
-
-    function showStatus(msg, type) {
-      const el = document.getElementById("status");
-      el.textContent = msg;
-      el.className = "status-bar show " + type;
-    }
-
-    function showLoading(msg) {
-      document.getElementById("loadingMsg").textContent = msg || "Working...";
-      document.getElementById("loading").classList.add("show");
-    }
-    function hideLoading() { document.getElementById("loading").classList.remove("show"); }
-
-    function getConfig() {
-      const token = document.getElementById("ghToken").value.trim();
-      const branch = document.getElementById("branch").value.trim() || "main";
-      if (!token) { showStatus("Please enter your GitHub token.", "error"); return null; }
-      localStorage.setItem("toolshub_gh_token", token);
-      localStorage.setItem("toolshub_branch", branch);
-      return { token, branch };
-    }
-
-    async function githubFetch(url, token, options = {}) {
-      const res = await fetch(url, {
-        ...options,
-        headers: {
-          "Authorization": `token ${token}`,
-          "Accept": "application/vnd.github.v3+json",
-          "Content-Type": "application/json",
-          ...(options.headers || {})
-        }
-      });
-      return res;
-    }
-
-    async function loadFromGitHub() {
-      const cfg = getConfig();
-      if (!cfg) return;
-
-      showLoading("Loading from GitHub...");
-      try {
-        const res = await githubFetch(
-          `${API_BASE}/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?ref=${cfg.branch}`,
-          cfg.token
-        );
-
-        if (res.status === 404) {
-          currentTools = [];
-          currentFileSHA = null;
-          renderExisting();
-          showStatus("No tools.json found yet. Publish your first extension!", "info");
-          hideLoading();
-          return;
-        }
-
-        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-
-        const data = await res.json();
-        currentFileSHA = data.sha;
-        const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-        currentTools = content.tools || [];
-        renderExisting();
-        showStatus(`Loaded ${currentTools.length} extension(s)!`, "success");
-      } catch (e) {
-        showStatus("Failed to load: " + e.message, "error");
-      }
-      hideLoading();
-    }
-
-    function renderExisting() {
-      const list = document.getElementById("existingList");
-
-      if (currentTools.length === 0) {
-        list.innerHTML = '<div class="no-tools"><span>📭</span>No extensions yet. Add your first one!</div>';
-        return;
-      }
-
-      list.innerHTML = currentTools.map(t => `
-        <div class="existing-item">
-          <div class="existing-item-info">
-            <div class="existing-item-icon">${t.icon || '📦'}</div>
-            <div>
-              <div class="existing-item-name">${t.name} ${t.featured ? '⭐' : ''}</div>
-              <div class="existing-item-cat">${t.category} &middot; v${t.version}</div>
-              ${t.downloadUrl ? '<div class="existing-item-file">✅ File uploaded</div>' : '<div class="existing-item-file" style="color:var(--yellow);">⚠️ No file</div>'}
-            </div>
-          </div>
-          <div class="existing-item-actions">
-            <button class="btn-edit" onclick="editTool('${t.id}')">Edit</button>
-            <button class="btn btn-danger" onclick="deleteTool('${t.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function generateId(name) {
-      return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    }
-
-    async function publish() {
-      const cfg = getConfig();
-      if (!cfg) return;
-
-      const name = document.getElementById("name").value.trim();
-      const description = document.getElementById("description").value.trim();
-
-      if (!name) { showStatus("Extension name is required.", "error"); return; }
-      if (!description) { showStatus("Description is required.", "error"); return; }
-      if (!editingId && !selectedFile) { showStatus("Please select a .zip file to upload.", "error"); return; }
-
-      const toolData = {
-        id: editingId || generateId(name),
-        name,
-        description,
-        icon: document.getElementById("icon").value.trim() || "📦",
-        version: document.getElementById("version").value.trim() || "1.0.0",
-        author: document.getElementById("author").value.trim() || "Unknown",
-        category: document.getElementById("category").value,
-        chromeWebStoreUrl: document.getElementById("chromeWebStoreUrl").value.trim(),
-        downloadUrl: "",
-        tags: document.getElementById("tags").value.split(",").map(t => t.trim()).filter(Boolean),
-        featured: document.getElementById("featured").checked,
-        dateAdded: editingId
-          ? (currentTools.find(t => t.id === editingId)?.dateAdded || new Date().toISOString().split("T")[0])
-          : new Date().toISOString().split("T")[0]
-      };
-
-      showLoading("Uploading extension file...");
-
-      try {
-        let downloadUrl = "";
-
-        if (selectedFile) {
-          downloadUrl = await uploadToRelease(cfg, toolData.id, toolData.version, selectedFile);
-        } else if (editingId) {
-          const existing = currentTools.find(t => t.id === editingId);
-          downloadUrl = existing?.downloadUrl || "";
-        }
-
-        toolData.downloadUrl = downloadUrl;
-
-        if (editingId) {
-          currentTools = currentTools.map(t => t.id === editingId ? toolData : t);
-        } else {
-          const exists = currentTools.find(t => t.id === toolData.id);
-          if (exists) { showStatus("An extension with this name already exists.", "error"); hideLoading(); return; }
-          currentTools.push(toolData);
-        }
-
-        showLoading("Publishing to GitHub...");
-        await pushToGitHub(cfg, editingId ? `Updated: ${name} v${toolData.version}` : `Added: ${name} v${toolData.version}`);
-
-        showStatus(editingId ? `"${name}" updated & published!` : `"${name}" published with download link!`, "success");
-        editingId = null;
-        selectedFile = null;
-        document.getElementById("fileInfo").innerHTML = "";
-        document.getElementById("extensionFile").value = "";
-        resetForm();
-        renderExisting();
-      } catch (e) {
-        showStatus("Publish failed: " + e.message, "error");
-      }
-
-      hideLoading();
-    }
-
-    async function uploadToRelease(cfg, toolId, version, file) {
-      const tag = `${toolId}-v${version}`;
-      const releaseName = `${toolId} v${version}`;
-
-      const existingRelease = await githubFetch(
-        `${API_BASE}/repos/${OWNER}/${REPO}/releases/tags/${tag}`,
-        cfg.token
-      );
-
-      let releaseId;
-      if (existingRelease.ok) {
-        const rel = await existingRelease.json();
-        releaseId = rel.id;
-      } else {
-        const createRes = await githubFetch(
-          `${API_BASE}/repos/${OWNER}/${REPO}/releases`,
-          cfg.token,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              tag_name: tag,
-              name: releaseName,
-              body: `Extension: ${toolId} v${version}`,
-              draft: false,
-              prerelease: false
-            })
-          }
-        );
-
-        if (!createRes.ok) {
-          const err = await createRes.json();
-          throw new Error("Failed to create release: " + (err.message || createRes.status));
-        }
-
-        const rel = await createRes.json();
-        releaseId = rel.id;
-      }
-
-      const fileData = await file.arrayBuffer();
-      const uint8 = new Uint8Array(fileData);
-      let binary = "";
-      for (let i = 0; i < uint8.length; i++) {
-        binary += String.fromCharCode(uint8[i]);
-      }
-      const base64 = btoa(binary);
-
-      const uploadRes = await fetch(
-        `${API_BASE}/repos/${OWNER}/${REPO}/releases/${releaseId}/assets?name=${encodeURIComponent(file.name)}`,
-        {
-          method: "POST",
-          headers: {
-            "Authorization": `token ${cfg.token}`,
-            "Content-Type": "application/zip",
-            "Accept": "application/vnd.github.v3+json"
-          },
-          body: fileData
-        }
-      );
-
-      if (!uploadRes.ok) {
-        const err = await uploadRes.json();
-        throw new Error("File upload failed: " + (err.message || uploadRes.status));
-      }
-
-      const asset = await uploadRes.json();
-      return asset.browser_download_url;
-    }
-
-    async function pushToGitHub(cfg, commitMsg) {
-      const body = {
-        message: commitMsg,
-        content: btoa(unescape(encodeURIComponent(JSON.stringify({ tools: currentTools }, null, 2)))),
-        branch: cfg.branch
-      };
-
-      if (currentFileSHA) {
-        body.sha = currentFileSHA;
-      }
-
-      const res = await githubFetch(
-        `${API_BASE}/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`,
-        cfg.token,
-        { method: "PUT", body: JSON.stringify(body) }
-      );
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "GitHub push failed");
-      }
-
-      const data = await res.json();
-      currentFileSHA = data.content.sha;
-    }
-
-    function editTool(id) {
-      const t = currentTools.find(x => x.id === id);
-      if (!t) return;
-
-      editingId = id;
-      selectedFile = null;
-      document.getElementById("fileInfo").innerHTML = "";
-      document.getElementById("extensionFile").value = "";
-
-      document.getElementById("name").value = t.name;
-      document.getElementById("description").value = t.description;
-      document.getElementById("icon").value = t.icon;
-      document.getElementById("version").value = t.version;
-      document.getElementById("author").value = t.author;
-      document.getElementById("category").value = t.category;
-      document.getElementById("chromeWebStoreUrl").value = t.chromeWebStoreUrl || "";
-      document.getElementById("tags").value = (t.tags || []).join(", ");
-      document.getElementById("featured").checked = t.featured;
-
-      if (t.downloadUrl) {
-        document.getElementById("fileInfo").innerHTML = `
-          <div class="file-selected">
-            <span>📦</span>
-            <span class="file-name" style="color:var(--green);">Current file uploaded ✅</span>
-            <span class="file-size">Re-upload to replace</span>
-          </div>`;
-      }
-
-      document.getElementById("form-title").textContent = "Edit Extension";
-      document.getElementById("publishBtn").textContent = "Update & Publish";
-      document.getElementById("resetBtn").style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    async function deleteTool(id) {
-      const tool = currentTools.find(t => t.id === id);
-      if (!confirm(`Delete "${tool?.name || id}"? This will push to GitHub immediately.`)) return;
-
-      const cfg = getConfig();
-      if (!cfg) return;
-
-      showLoading("Deleting...");
-      try {
-        currentTools = currentTools.filter(t => t.id !== id);
-        await pushToGitHub(cfg, `Deleted: ${tool?.name || id}`);
-        showStatus(`"${tool?.name}" deleted.`, "success");
-        renderExisting();
-      } catch (e) {
-        showStatus("Delete failed: " + e.message, "error");
-      }
-      hideLoading();
-    }
-
-    function resetForm() {
-      editingId = null;
-      selectedFile = null;
-      document.getElementById("name").value = "";
-      document.getElementById("description").value = "";
-      document.getElementById("icon").value = "";
-      document.getElementById("version").value = "1.0.0";
-      document.getElementById("author").value = "Rafiq";
-      document.getElementById("chromeWebStoreUrl").value = "";
-      document.getElementById("tags").value = "";
-      document.getElementById("featured").checked = false;
-      document.getElementById("fileInfo").innerHTML = "";
-      document.getElementById("extensionFile").value = "";
-      document.getElementById("form-title").textContent = "Add Extension";
-      document.getElementById("publishBtn").textContent = "Publish to GitHub";
-      document.getElementById("resetBtn").style.display = "none";
-    }
+    function pickFile(f){if(!f)return;selFile=f;document.getElementById("fileInfo").innerHTML='<div class="file-selected"><span>📦</span><span class="file-name">'+f.name+'</span><span class="file-size">'+fmtSize(f.size)+'</span><button class="file-remove" onclick="rmFile()">&times;</button></div>';}
+    function rmFile(){selFile=null;document.getElementById("extensionFile").value="";document.getElementById("fileInfo").innerHTML="";}
+    function fmtSize(b){return b<1024?b+" B":b<1048576?(b/1024).toFixed(1)+" KB":(b/1048576).toFixed(1)+" MB";}
+    function log(msg,cls){document.getElementById("stepLog").innerHTML+='<div class="'+(cls||'')+'">'+msg+'</div>';}
+    function clearLog(){document.getElementById("stepLog").innerHTML="";}
+    function showStatus(msg,type){const el=document.getElementById("status");el.textContent=msg;el.className="status-bar show "+type;}
+    function showLoading(m){document.getElementById("loadingMsg").textContent=m||"Working...";document.getElementById("loading").classList.add("show");}
+    function hideLoading(){document.getElementById("loading").classList.remove("show");}
+    function cfg(){const token=document.getElementById("ghToken").value.trim(),branch=document.getElementById("branch").value.trim()||"main";if(!token){showStatus("Enter your GitHub token.","error");return null;}localStorage.setItem("th_token",token);localStorage.setItem("th_branch",branch);return{token,branch};}
+    async function api(url,token,opts={}){return fetch(url,{...opts,headers:{"Authorization":"token "+token,"Accept":"application/vnd.github.v3+json","Content-Type":"application/json",...(opts.headers||{})}});}
+    async function loadFromGitHub(){const c=cfg();if(!c)return;showLoading("Loading...");try{const r=await api(API+"/repos/"+OWNER+"/"+REPO+"/contents/tools.json?ref="+c.branch,c.token);if(r.status===404){tools=[];fileSHA=null;renderList();showStatus("No tools.json yet. Publish your first extension!","info");hideLoading();return;}if(!r.ok)throw new Error("API "+r.status);const d=await r.json();fileSHA=d.sha;tools=JSON.parse(decodeURIComponent(escape(atob(d.content)))).tools||[];renderList();showStatus("Loaded "+tools.length+" extension(s)!","success");}catch(e){showStatus("Load failed: "+e.message,"error");}hideLoading();}
+    function renderList(){const el=document.getElementById("existingList");if(!tools.length){el.innerHTML='<div class="no-tools"><span>📭</span>No extensions yet.</div>';return;}el.innerHTML=tools.map(t=>'<div class="existing-item"><div class="existing-item-info"><div class="existing-item-icon">'+(t.icon||'📦')+'</div><div><div class="existing-item-name">'+t.name+' '+(t.featured?'⭐':'')+'</div><div class="existing-item-cat">'+t.category+' · v'+t.version+'</div></div></div><div class="existing-item-actions"><button class="btn-edit" onclick="editTool(\''+t.id+'\')">Edit</button><button class="btn btn-danger" onclick="delTool(\''+t.id+'\')">Delete</button></div></div>').join("");}
+    function genId(n){return n.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+    async function publish(){const c=cfg();if(!c)return;const name=document.getElementById("name").value.trim(),desc=document.getElementById("description").value.trim();if(!name){showStatus("Name required.","error");return;}if(!desc){showStatus("Description required.","error");return;}clearLog();const td={id:editId||genId(name),name,description:desc,icon:document.getElementById("icon").value.trim()||"📦",version:document.getElementById("version").value.trim()||"1.0.0",author:document.getElementById("author").value.trim()||"Unknown",category:document.getElementById("category").value,chromeWebStoreUrl:document.getElementById("chromeWebStoreUrl").value.trim(),downloadUrl:"",tags:document.getElementById("tags").value.split(",").map(s=>s.trim()).filter(Boolean),featured:document.getElementById("featured").checked,dateAdded:editId?(tools.find(t=>t.id===editId)||{}).dateAdded||new Date().toISOString().split("T")[0]:new Date().toISOString().split("T")[0]};showLoading("Publishing...");try{if(selFile){log("📤 Uploading file...","warn");td.downloadUrl=await uploadZip(c,td.id,selFile);log("✅ File uploaded: "+selFile.name,"ok");}if(editId){tools=tools.map(t=>t.id===editId?td:t);}else{if(tools.find(t=>t.id===td.id)){showStatus("Extension with this name exists.","error");hideLoading();return;}tools.push(td);}log("📝 Saving tools.json...","warn");await saveJSON(c,editId?"Updated: "+name:"Added: "+name);log("✅ tools.json saved!","ok");showStatus('"'+name+'" published!',"success");editId=null;selFile=null;document.getElementById("fileInfo").innerHTML="";document.getElementById("extensionFile").value="";resetForm();renderList();}catch(e){showStatus("Failed: "+e.message,"error");log("❌ "+e.message,"fail");}hideLoading();}
+    async function uploadZip(c,toolId,file){const path="extensions/"+toolId+"/"+file.name;const buf=await file.arrayBuffer();const bytes=new Uint8Array(buf);let bin="";for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);const b64=btoa(bin);let sha=null;try{const chk=await api(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path+"?ref="+c.branch,c.token);if(chk.ok){const d=await chk.json();sha=d.sha;}}catch(e){}const body={message:"Upload: "+path,content:b64,branch:c.branch};if(sha)body.sha=sha;const r=await api(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path,c.token,{method:"PUT",body:JSON.stringify(body)});if(!r.ok){const err=await r.json().catch(()=>({}));throw new Error("Upload failed ["+r.status+"]: "+(err.message||"Unknown error"));}return "https://raw.githubusercontent.com/"+OWNER+"/"+REPO+"/"+c.branch+"/"+path;}
+    async function saveJSON(c,msg){const content=btoa(unescape(encodeURIComponent(JSON.stringify({tools},null,2))));const body={message:msg,content,branch:c.branch};if(fileSHA)body.sha=fileSHA;const r=await api(API+"/repos/"+OWNER+"/"+REPO+"/contents/tools.json",c.token,{method:"PUT",body:JSON.stringify(body)});if(!r.ok){const err=await r.json().catch(()=>({}));throw new Error("Save failed ["+r.status+"]: "+(err.message||"Unknown error"));}const d=await r.json();fileSHA=d.content.sha;}
+    function editTool(id){const t=tools.find(x=>x.id===id);if(!t)return;editId=id;selFile=null;document.getElementById("name").value=t.name;document.getElementById("description").value=t.description;document.getElementById("icon").value=t.icon;document.getElementById("version").value=t.version;document.getElementById("author").value=t.author;document.getElementById("category").value=t.category;document.getElementById("chromeWebStoreUrl").value=t.chromeWebStoreUrl||"";document.getElementById("tags").value=(t.tags||[]).join(", ");document.getElementById("featured").checked=t.featured;document.getElementById("form-title").textContent="Edit Extension";document.getElementById("publishBtn").textContent="Update & Publish";document.getElementById("resetBtn").style.display="block";window.scrollTo({top:0,behavior:"smooth"});}
+    async function delTool(id){const t=tools.find(x=>x.id===id);if(!confirm('Delete "'+(t?.name||id)+'"?'))return;const c=cfg();if(!c)return;showLoading("Deleting...");try{tools=tools.filter(x=>x.id!==id);await saveJSON(c,"Deleted: "+(t?.name||id));showStatus('"'+t?.name+'" deleted.',"success");renderList();}catch(e){showStatus("Delete failed: "+e.message,"error");}hideLoading();}
+    function resetForm(){editId=null;selFile=null;document.getElementById("name").value="";document.getElementById("description").value="";document.getElementById("icon").value="";document.getElementById("version").value="1.0.0";document.getElementById("author").value="Rafiq";document.getElementById("chromeWebStoreUrl").value="";document.getElementById("tags").value="";document.getElementById("featured").checked=false;document.getElementById("fileInfo").innerHTML="";document.getElementById("extensionFile").value="";document.getElementById("form-title").textContent="Add Extension";document.getElementById("publishBtn").textContent="Publish to GitHub";document.getElementById("resetBtn").style.display="none";}
   </script>
 </body>
-.
 </html>
