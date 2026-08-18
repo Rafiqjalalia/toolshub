@@ -6,256 +6,52 @@
   <title>ToolsHub — Chrome Extensions Store</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #0f0f0f;
-      --surface: #1a1a2e;
-      --surface-hover: #16213e;
-      --accent: #e94560;
-      --accent-hover: #c73e54;
-      --text: #eee;
-      --text-muted: #888;
-      --border: #2a2a3e;
-      --radius: 14px;
-    }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    header {
-      text-align: center;
-      padding: 50px 20px 30px;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    header p {
-      color: var(--text-muted);
-      margin-top: 10px;
-      font-size: 1.1rem;
-    }
-
-    .search-bar {
-      max-width: 500px;
-      margin: 25px auto 10px;
-      padding: 14px 20px;
-      border-radius: 50px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 1rem;
-      outline: none;
-      width: 90%;
-      transition: border-color 0.3s;
-    }
-
+    :root { --bg: #0f0f0f; --surface: #1a1a2e; --surface-hover: #16213e; --accent: #e94560; --accent-hover: #c73e54; --text: #eee; --text-muted: #888; --border: #2a2a3e; --radius: 14px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    header { text-align: center; padding: 50px 20px 30px; }
+    header h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    header p { color: var(--text-muted); margin-top: 10px; font-size: 1.1rem; }
+    .search-bar { max-width: 500px; margin: 25px auto 10px; padding: 14px 20px; border-radius: 50px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 1rem; outline: none; width: 90%; transition: border-color 0.3s; }
     .search-bar:focus { border-color: var(--accent); }
-
-    .filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 20px;
-    }
-
-    .filter-btn {
-      padding: 8px 18px;
-      border-radius: 50px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.3s;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
-      padding: 10px 40px 60px;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 35px rgba(233, 69, 96, 0.15);
-      border-color: var(--accent);
-    }
-
-    .card.featured::before {
-      content: "⭐ Featured";
-      position: absolute;
-      top: 14px;
-      right: -30px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 4px 35px;
-      transform: rotate(45deg);
-      text-transform: uppercase;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-
-    .card-icon {
-      font-size: 2.2rem;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface-hover);
-      border-radius: 12px;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    .card-version {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 50px;
-      background: var(--surface-hover);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-category {
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .card-author {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .btn-install {
-      display: inline-block;
-      padding: 10px 22px;
-      border-radius: 50px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: background 0.3s;
-    }
-
+    .filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 20px; }
+    .filter-btn { padding: 8px 18px; border-radius: 50px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 10px 40px 60px; max-width: 1300px; margin: 0 auto; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(233, 69, 96, 0.15); border-color: var(--accent); }
+    .card.featured::before { content: "⭐ Featured"; position: absolute; top: 14px; right: -30px; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 35px; transform: rotate(45deg); text-transform: uppercase; }
+    .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .card-icon { font-size: 2.2rem; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; background: var(--surface-hover); border-radius: 12px; }
+    .card-title { font-size: 1.2rem; font-weight: 700; }
+    .card-version { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .card-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 16px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 50px; background: var(--surface-hover); color: var(--text-muted); border: 1px solid var(--border); }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .card-category { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+    .card-author { font-size: 0.8rem; color: var(--text-muted); }
+    .btn-install { display: inline-block; padding: 10px 22px; border-radius: 50px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.3s; }
     .btn-install:hover { background: var(--accent-hover); }
-    .btn-install.disabled {
-      background: var(--border);
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      grid-column: 1 / -1;
-    }
-
+    .btn-install.disabled { background: var(--border); color: var(--text-muted); pointer-events: none; }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--text-muted); font-size: 1.1rem; grid-column: 1 / -1; }
     .empty-state span { font-size: 3rem; display: block; margin-bottom: 14px; }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 700px) {
-      .grid { padding: 10px 16px 40px; grid-template-columns: 1fr; }
-      header h1 { font-size: 1.8rem; }
-    }
+    footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    @media (max-width: 700px) { .grid { padding: 10px 16px 40px; grid-template-columns: 1fr; } header h1 { font-size: 1.8rem; } }
   </style>
 </head>
 <body>
-
   <header>
     <h1>ToolsHub</h1>
     <p>Discover &amp; install the best Chrome extensions</p>
     <input type="text" class="search-bar" id="search" placeholder="Search extensions..." autocomplete="off">
   </header>
-
   <div class="filters" id="filters"></div>
   <div class="grid" id="grid"></div>
-
   <footer>ToolsHub &copy; 2026 &mdash; Built by Rafiq</footer>
-
   <script>
     const REPO_RAW = "https://raw.githubusercontent.com/Rafiqjalalia/toolshub/main/tools.json";
     let allTools = [];
     let activeFilter = "All";
-
     async function loadTools() {
       try {
         const res = await fetch(REPO_RAW + "?t=" + Date.now());
@@ -264,76 +60,34 @@
         buildFilters();
         renderTools();
       } catch (e) {
-        document.getElementById("grid").innerHTML =
-          '<div class="empty-state"><span>⚠️</span>Failed to load extensions. Please try again later.</div>';
+        document.getElementById("grid").innerHTML = '<div class="empty-state"><span>⚠️</span>Failed to load extensions.</div>';
       }
     }
-
     function buildFilters() {
       const cats = ["All", ...new Set(allTools.map(t => t.category))];
-      const container = document.getElementById("filters");
-      container.innerHTML = cats.map(c =>
-        `<button class="filter-btn ${c === activeFilter ? 'active' : ''}" onclick="setFilter('${c}')">${c}</button>`
-      ).join("");
+      document.getElementById("filters").innerHTML = cats.map(c => '<button class="filter-btn ' + (c === activeFilter ? 'active' : '') + '" onclick="setFilter(\'' + c + '\')">' + c + '</button>').join("");
     }
-
-    function setFilter(cat) {
-      activeFilter = cat;
-      buildFilters();
-      renderTools();
-    }
-
+    function setFilter(cat) { activeFilter = cat; buildFilters(); renderTools(); }
     function renderTools() {
       const q = document.getElementById("search").value.toLowerCase();
       const filtered = allTools.filter(t => {
         const matchCat = activeFilter === "All" || t.category === activeFilter;
-        const matchSearch = !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q)
-          || (t.tags || []).some(tag => tag.toLowerCase().includes(q));
+        const matchSearch = !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || (t.tags || []).some(tag => tag.toLowerCase().includes(q));
         return matchCat && matchSearch;
       });
-
       const grid = document.getElementById("grid");
-
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div class="empty-state"><span>🔍</span>No extensions found.</div>';
-        return;
-      }
-
+      if (filtered.length === 0) { grid.innerHTML = '<div class="empty-state"><span>🔍</span>No extensions found.</div>'; return; }
       grid.innerHTML = filtered.map(t => {
         const hasCws = t.chromeWebStoreUrl && t.chromeWebStoreUrl.trim() !== "";
         const hasDownload = t.downloadUrl && t.downloadUrl.trim() !== "";
-        return `
-          <div class="card ${t.featured ? 'featured' : ''}">
-            <div class="card-header">
-              <div class="card-icon">${t.icon || '📦'}</div>
-              <div>
-                <div class="card-title">${t.name}</div>
-                <div class="card-version">v${t.version}</div>
-              </div>
-            </div>
-            <div class="card-desc">${t.description}</div>
-            <div class="card-tags">
-              ${(t.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("")}
-            </div>
-            <div class="card-footer">
-              <div>
-                <div class="card-category">${t.category}</div>
-                <div class="card-author">by ${t.author}</div>
-              </div>
-              ${hasCws
-                ? `<a class="btn-install" href="${t.chromeWebStoreUrl}" target="_blank" rel="noopener">Install</a>`
-                : hasDownload
-                  ? `<a class="btn-install" href="${t.downloadUrl}" target="_blank" rel="noopener">Download</a>`
-                  : `<span class="btn-install disabled">Coming Soon</span>`
-              }
-            </div>
-          </div>`;
+        let btn = '<span class="btn-install disabled">Coming Soon</span>';
+        if (hasCws) btn = '<a class="btn-install" href="' + t.chromeWebStoreUrl + '" target="_blank" rel="noopener">Install</a>';
+        else if (hasDownload) btn = '<a class="btn-install" href="' + t.downloadUrl + '" target="_blank" rel="noopener">Download</a>';
+        return '<div class="card ' + (t.featured ? 'featured' : '') + '"><div class="card-header"><div class="card-icon">' + (t.icon || '📦') + '</div><div><div class="card-title">' + t.name + '</div><div class="card-version">v' + t.version + '</div></div></div><div class="card-desc">' + t.description + '</div><div class="card-tags">' + (t.tags || []).map(tag => '<span class="tag">' + tag + '</span>').join("") + '</div><div class="card-footer"><div><div class="card-category">' + t.category + '</div><div class="card-author">by ' + t.author + '</div></div>' + btn + '</div></div>';
       }).join("");
     }
-
     document.getElementById("search").addEventListener("input", renderTools);
     loadTools();
   </script>
 </body>
-  .
 </html>
