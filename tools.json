@@ -68,6 +68,26 @@
       ],
       "featured": false,
       "dateAdded": "2026-08-19"
+    },
+    {
+      "id": "sticky-notes",
+      "name": "sticky notes",
+      "description": "Just  type and save your notes right on your browser without leaving your browser forget about text editor .Now you will not miss anything",
+      "icon": "📝",
+      "iconUrl": "",
+      "version": "1.0.0",
+      "author": "Rafiq",
+      "category": "Productivity",
+      "chromeWebStoreUrl": "",
+      "downloadUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/extensions/sticky-notes/sticky-notes-extension.zip",
+      "tags": [
+        "notes",
+        "productivity",
+        "stickynotes",
+        "notes on browser"
+      ],
+      "featured": true,
+      "dateAdded": "2026-08-19"
     }
   ]
 }
