@@ -103,6 +103,25 @@
       "tags": [],
       "featured": false,
       "dateAdded": "2026-08-19"
+    },
+    {
+      "id": "roman-urdu-to-text",
+      "name": "Roman urdu to text",
+      "description": "Write in roman and copy in urdu text just type in roman urdu and convert it into a urdu text",
+      "icon": "📦",
+      "iconUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/icons/roman-urdu-to-text/iconn_!.png",
+      "version": "1.0.0",
+      "author": "Rafiq",
+      "category": "Productivity",
+      "chromeWebStoreUrl": "",
+      "downloadUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/extensions/roman-urdu-to-text/chrome_extension.zip",
+      "tags": [
+        "urdu text extract",
+        "roman urdu",
+        "urdu"
+      ],
+      "featured": true,
+      "dateAdded": "2026-08-19"
     }
   ]
 }
