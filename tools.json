@@ -10,9 +10,29 @@
       "chromeWebStoreUrl": "",
       "downloadUrl": "",
       "icon": "🌙",
-      "tags": ["dark mode", "theme", "eye care"],
+      "tags": [
+        "dark mode",
+        "theme",
+        "eye care"
+      ],
       "featured": true,
       "dateAdded": "2026-08-18"
+    },
+    {
+      "id": "device-viewer",
+      "name": "Device viewer",
+      "description": "View your webstie in different devices and check resposiveness of the device",
+      "icon": "📦",
+      "version": "1.0.0",
+      "author": "Rafiq",
+      "category": "Productivity",
+      "chromeWebStoreUrl": "",
+      "downloadUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/extensions/device-viewer/device-view-extension (4).zip",
+      "tags": [
+        "Responsive"
+      ],
+      "featured": false,
+      "dateAdded": "2026-08-19"
     }
   ]
 }
