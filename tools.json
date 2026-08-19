@@ -33,6 +33,24 @@
       ],
       "featured": false,
       "dateAdded": "2026-08-19"
+    },
+    {
+      "id": "resize-your-images-in-bulk",
+      "name": "Resize your images in bulk",
+      "description": "Resize your images compress them without loosing their quality Download and add extention to your chorome browser",
+      "icon": "📦",
+      "version": "1.0.0",
+      "author": "Rafiq",
+      "category": "Productivity",
+      "chromeWebStoreUrl": "",
+      "downloadUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/extensions/resize-your-images-in-bulk/bulki-image-tool.zip",
+      "tags": [
+        "Image resize",
+        "Resize",
+        "Image compress"
+      ],
+      "featured": true,
+      "dateAdded": "2026-08-19"
     }
   ]
 }
