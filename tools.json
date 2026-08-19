@@ -88,6 +88,21 @@
       ],
       "featured": true,
       "dateAdded": "2026-08-19"
+    },
+    {
+      "id": "screen-capture",
+      "name": "Screen capture",
+      "description": "Just capture your screens from your browser without leaving your work .Edit them right on your browser copy them and share them easily .",
+      "icon": "📦",
+      "iconUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/icons/screen-capture/icon128.png",
+      "version": "1.0.0",
+      "author": "Rafiq",
+      "category": "Productivity",
+      "chromeWebStoreUrl": "",
+      "downloadUrl": "https://github.com/Rafiqjalalia/toolshub/raw/main/extensions/screen-capture/screenshot-annotate-extension.zip",
+      "tags": [],
+      "featured": false,
+      "dateAdded": "2026-08-19"
     }
   ]
 }
